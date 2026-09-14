@@ -1,24 +1,68 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { KanbanSquare, Users, Briefcase, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "AtlasATS – enkelt rekryteringsverktyg" },
+      {
+        name: "description",
+        content:
+          "AtlasATS är ett minimalt ATS: lägg upp jobb, samla kandidater och följ processen i en kompakt kanban-vy.",
+      },
+      { property: "og:title", content: "AtlasATS – enkelt rekryteringsverktyg" },
+      {
+        property: "og:description",
+        content: "Lägg upp jobb, samla kandidater och följ rekryteringen i en kompakt kanban-vy.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Landing,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const features = [
+  { icon: Briefcase, title: "Jobb", text: "Lägg upp rollerna du rekryterar till." },
+  { icon: Users, title: "Kandidater", text: "Profiler med LinkedIn, kontakt och anteckningar." },
+  { icon: KanbanSquare, title: "Kanban", text: "Kompakt vy med filter på jobb och namn." },
+  { icon: ShieldCheck, title: "Admin", text: "Skapa konton och arbeta åt kunder." },
+];
+
+function Landing() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-sidebar text-sidebar-foreground">
+      <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6">
+        <span className="font-display text-lg font-semibold">AtlasATS</span>
+        <Button asChild variant="secondary">
+          <Link to="/auth">Logga in</Link>
+        </Button>
+      </header>
+
+      <main className="mx-auto max-w-5xl px-6 pb-24 pt-10">
+        <h1 className="max-w-2xl font-display text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
+          Ett mini-ATS som håller rekryteringen på ett ställe.
+        </h1>
+        <p className="mt-6 max-w-xl text-base opacity-80">
+          Jobb, kandidatprofiler och en kompakt kanban-vy — för byrån och för kunderna.
+        </p>
+        <div className="mt-8">
+          <Button asChild size="lg">
+            <Link to="/auth">Kom igång</Link>
+          </Button>
+        </div>
+
+        <div className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {features.map(({ icon: Icon, title, text }) => (
+            <div key={title} className="rounded-xl bg-sidebar-accent p-5">
+              <Icon className="size-5 text-sidebar-primary" />
+              <h2 className="mt-3 font-display text-base font-semibold">{title}</h2>
+              <p className="mt-1 text-sm opacity-75">{text}</p>
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
