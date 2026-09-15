@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { Plus } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -36,6 +38,7 @@ export function CandidateDialog({
 }) {
   const [open, setOpen] = useState(false);
   const { data: jobs } = useJobs();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const [jobId, setJobId] = useState(candidate?.job_id ?? defaultJobId ?? "");
