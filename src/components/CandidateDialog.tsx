@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { Plus } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -36,6 +38,7 @@ export function CandidateDialog({
 }) {
   const [open, setOpen] = useState(false);
   const { data: jobs } = useJobs();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const [jobId, setJobId] = useState(candidate?.job_id ?? defaultJobId ?? "");
@@ -97,19 +100,38 @@ export function CandidateDialog({
         >
           <div className="space-y-2">
             <Label>Jobb</Label>
-            <Select value={jobId} onValueChange={setJobId}>
-              <SelectTrigger>
-                <SelectValue placeholder="Välj jobb" />
-              </SelectTrigger>
-              <SelectContent>
-                {(jobs ?? []).map((j) => (
-                  <SelectItem key={j.id} value={j.id}>
-                    {j.title}
-                    {j.company ? ` · ${j.company}` : ""}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {(jobs ?? []).length === 0 ? (
+              <div className="rounded-lg border border-dashed border-border p-4 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Du har inga jobb ännu. Skapa ett jobb först.
+                </p>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="mt-3"
+                  onClick={() => {
+                    setOpen(false);
+                    navigate({ to: "/jobs" });
+                  }}
+                >
+                  <Plus className="size-4" /> Skapa jobb
+                </Button>
+              </div>
+            ) : (
+              <Select value={jobId} onValueChange={setJobId}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Välj jobb" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(jobs ?? []).map((j) => (
+                    <SelectItem key={j.id} value={j.id}>
+                      {j.title}
+                      {j.company ? ` · ${j.company}` : ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
