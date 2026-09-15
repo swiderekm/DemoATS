@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { createAccount, listAccounts } from "@/lib/admin.functions";
+import { Trash2 } from "lucide-react";
+import { createAccount, deleteAccount, listAccounts } from "@/lib/admin.functions";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,6 +43,7 @@ function Admin() {
   const { data: user } = useCurrentUser();
   const fetchAccounts = useServerFn(listAccounts);
   const submitAccount = useServerFn(createAccount);
+  const removeAccount = useServerFn(deleteAccount);
   const queryClient = useQueryClient();
 
   const [email, setEmail] = useState("");
@@ -67,6 +69,18 @@ function Admin() {
       setCompany("");
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
       queryClient.invalidateQueries({ queryKey: ["owners"] });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const remove = useMutation({
+    mutationFn: (userId: string) => removeAccount({ data: { userId } }),
+    onSuccess: () => {
+      toast.success("Kontot togs bort");
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["owners"] });
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["candidates"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -144,6 +158,7 @@ function Admin() {
               <TableHead>E-post</TableHead>
               <TableHead>Företag</TableHead>
               <TableHead>Roll</TableHead>
+              <TableHead className="text-right">Åtgärd</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -153,6 +168,20 @@ function Admin() {
                 <TableCell>{a.email}</TableCell>
                 <TableCell>{a.company ?? "—"}</TableCell>
                 <TableCell>{a.role === "admin" ? "Admin" : "Kund"}</TableCell>
+                <TableCell className="text-right">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    disabled={a.id === user?.id || remove.isPending}
+                    onClick={() => {
+                      if (confirm(`Ta bort ${a.email}? Detta går inte att ångra.`)) {
+                        remove.mutate(a.id);
+                      }
+                    }}
+                  >
+                    <Trash2 className="size-4" />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
