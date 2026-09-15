@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AtlasATS – enkelt rekryteringsverktyg" },
+      { title: "DemoATS – enkelt rekryteringsverktyg" },
       {
         name: "description",
         content:
-          "AtlasATS är ett minimalt ATS: lägg upp jobb, samla kandidater och följ processen i en kompakt kanban-vy.",
+          "DemoATS är ett minimalt ATS: lägg upp jobb, samla kandidater och följ processen i en kompakt kanban-vy.",
       },
-      { property: "og:title", content: "AtlasATS – enkelt rekryteringsverktyg" },
+      { property: "og:title", content: "DemoATS – enkelt rekryteringsverktyg" },
       {
         property: "og:description",
         content: "Lägg upp jobb, samla kandidater och följ rekryteringen i en kompakt kanban-vy.",
@@ -34,7 +34,7 @@ function Landing() {
   return (
     <div className="min-h-screen bg-sidebar text-sidebar-foreground">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6">
-        <span className="font-display text-lg font-semibold">AtlasATS</span>
+        <span className="font-display text-lg font-semibold">DemoATS</span>
         <Button asChild variant="secondary">
           <Link to="/auth">Logga in</Link>
         </Button>
