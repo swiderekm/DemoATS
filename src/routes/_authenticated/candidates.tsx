@@ -25,9 +25,9 @@ import {
 export const Route = createFileRoute("/_authenticated/candidates")({
   head: () => ({
     meta: [
-      { title: "Kandidater | AtlasATS" },
+      { title: "Kandidater | DemoATS" },
       { name: "description", content: "Alla kandidater med profilinformation och LinkedIn-länk." },
-      { property: "og:title", content: "Kandidater | AtlasATS" },
+      { property: "og:title", content: "Kandidater | DemoATS" },
       {
         property: "og:description",
         content: "Alla kandidater med profilinformation och LinkedIn-länk.",

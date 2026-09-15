@@ -33,7 +33,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
           <span className="flex size-8 items-center justify-center rounded-lg bg-sidebar-primary font-display text-sm font-bold text-sidebar-primary-foreground">
             A
           </span>
-          <span className="font-display text-lg font-semibold tracking-tight">AtlasATS</span>
+          <span className="font-display text-lg font-semibold tracking-tight">DemoATS</span>
         </Link>
         <nav className="flex flex-1 flex-col gap-1">
           {links.map(({ to, label, icon: Icon }) => (
@@ -77,7 +77,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex items-center justify-between gap-3 border-b border-border bg-card px-4 py-3 md:hidden">
-          <span className="font-display font-semibold">AtlasATS</span>
+          <span className="font-display font-semibold">DemoATS</span>
           <div className="flex items-center gap-1">
             {links.map(({ to, icon: Icon }) => (
               <Link key={to} to={to} className="rounded-md p-2 hover:bg-muted">

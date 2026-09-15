@@ -20,9 +20,9 @@ import {
 export const Route = createFileRoute("/_authenticated/board")({
   head: () => ({
     meta: [
-      { title: "Kanban | AtlasATS" },
+      { title: "Kanban | DemoATS" },
       { name: "description", content: "Kompakt kanban-vy över alla kandidater per jobb." },
-      { property: "og:title", content: "Kanban | AtlasATS" },
+      { property: "og:title", content: "Kanban | DemoATS" },
       { property: "og:description", content: "Kompakt kanban-vy över alla kandidater per jobb." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

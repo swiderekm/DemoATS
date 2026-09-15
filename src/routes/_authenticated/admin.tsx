@@ -27,10 +27,10 @@ import {
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Konton | AtlasATS" },
-      { name: "description", content: "Skapa admin- och kundkonton för AtlasATS." },
-      { property: "og:title", content: "Konton | AtlasATS" },
-      { property: "og:description", content: "Skapa admin- och kundkonton för AtlasATS." },
+      { title: "Konton | DemoATS" },
+      { name: "description", content: "Skapa admin- och kundkonton för DemoATS." },
+      { property: "og:title", content: "Konton | DemoATS" },
+      { property: "og:description", content: "Skapa admin- och kundkonton för DemoATS." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

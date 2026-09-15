@@ -11,9 +11,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/_authenticated/jobs")({
   head: () => ({
     meta: [
-      { title: "Jobb | AtlasATS" },
+      { title: "Jobb | DemoATS" },
       { name: "description", content: "Hantera jobben du rekryterar kandidater till." },
-      { property: "og:title", content: "Jobb | AtlasATS" },
+      { property: "og:title", content: "Jobb | DemoATS" },
       { property: "og:description", content: "Hantera jobben du rekryterar kandidater till." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
