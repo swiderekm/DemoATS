@@ -158,6 +158,7 @@ function Admin() {
               <TableHead>E-post</TableHead>
               <TableHead>Företag</TableHead>
               <TableHead>Roll</TableHead>
+              <TableHead className="text-right">Åtgärd</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -167,6 +168,20 @@ function Admin() {
                 <TableCell>{a.email}</TableCell>
                 <TableCell>{a.company ?? "—"}</TableCell>
                 <TableCell>{a.role === "admin" ? "Admin" : "Kund"}</TableCell>
+                <TableCell className="text-right">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    disabled={a.id === user?.id || remove.isPending}
+                    onClick={() => {
+                      if (confirm(`Ta bort ${a.email}? Detta går inte att ångra.`)) {
+                        remove.mutate(a.id);
+                      }
+                    }}
+                  >
+                    <Trash2 className="size-4" />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
