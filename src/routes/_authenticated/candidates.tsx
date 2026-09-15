@@ -96,7 +96,6 @@ function Candidates() {
             <TableRow>
               <TableHead>Namn</TableHead>
               <TableHead>Jobb</TableHead>
-              <TableHead>För</TableHead>
               <TableHead>Steg</TableHead>
               <TableHead>Kontakt</TableHead>
               <TableHead />
@@ -119,7 +118,6 @@ function Candidates() {
                   )}
                 </TableCell>
                 <TableCell>{jobById[c.job_id]?.title ?? "—"}</TableCell>
-                <TableCell>{jobById[c.job_id]?.company ?? "—"}</TableCell>
                 <TableCell>{STAGES.find((s) => s.value === c.stage)?.label}</TableCell>
                 <TableCell className="text-sm text-muted-foreground">
                   {c.email ?? c.phone ?? "—"}
