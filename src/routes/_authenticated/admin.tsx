@@ -43,6 +43,7 @@ function Admin() {
   const { data: user } = useCurrentUser();
   const fetchAccounts = useServerFn(listAccounts);
   const submitAccount = useServerFn(createAccount);
+  const removeAccount = useServerFn(deleteAccount);
   const queryClient = useQueryClient();
 
   const [email, setEmail] = useState("");
@@ -68,6 +69,18 @@ function Admin() {
       setCompany("");
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
       queryClient.invalidateQueries({ queryKey: ["owners"] });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const remove = useMutation({
+    mutationFn: (userId: string) => removeAccount({ data: { userId } }),
+    onSuccess: () => {
+      toast.success("Kontot togs bort");
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["owners"] });
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["candidates"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
